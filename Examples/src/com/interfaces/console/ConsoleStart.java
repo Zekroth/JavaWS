@@ -9,7 +9,7 @@ public class ConsoleStart {
 		boolean success = true;
 		Employee employee = null;
 		try {
-			employee = new Employee("Edoardo", "Barchiesi", 21, "Maschio", 1, "E14118", 20);
+			employee = new Employee("Edoardo", "Barchiesi", 17, "Maschio", 1, "E14118", 20);
 			
 		} catch (Exception e) {
 			
@@ -19,8 +19,8 @@ public class ConsoleStart {
 			}
 			success = false;
 		}
-		if(employee.equals(null)) {
-			System.out.println("C'è stato un errore con la creazione dell'impiegato");
+		if(employee == null) {
+			System.out.println("L'impiegato non è stato creato");
 		}else {
 			System.out.println("Impiegato creato");
 			for (java.lang.reflect.Field x : employee.getClass().getFields()) {
