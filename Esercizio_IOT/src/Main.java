@@ -1,5 +1,7 @@
 import java.util.*;
 
+import Components.EComponent;
+
 public class Main {
 	
 	public static List<EComponent> ComponentList;

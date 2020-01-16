@@ -1,3 +1,4 @@
+package Components;
 
 public class Lampadina extends EComponent{
 	

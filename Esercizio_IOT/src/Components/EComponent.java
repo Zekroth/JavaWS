@@ -1,3 +1,4 @@
+package Components;
 
 public abstract class EComponent {
 	

@@ -1,3 +1,4 @@
+package Components;
 
 public class Generatore extends EComponent{
 	
