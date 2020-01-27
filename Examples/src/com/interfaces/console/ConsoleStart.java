@@ -1,11 +1,12 @@
 package com.interfaces.console;
 
 import com.examples.Employee;
+import com.examples.FunzioniMatematiche;
 import com.sun.jdi.Field;
 
 public class ConsoleStart {
 
-	public static void main(String[] args) throws IllegalArgumentException, IllegalAccessException {
+	public static void StartEmployee() throws IllegalArgumentException, IllegalAccessException {
 		boolean success = true;
 		Employee employee = null;
 		try {
@@ -28,4 +29,24 @@ public class ConsoleStart {
 			}
 		}
 	}
+	public static void Radice() throws Exception{
+		FunzioniMatematiche fm;
+		
+		try {
+			fm = new FunzioniMatematiche();
+			System.out.println(fm.sqrt(7));
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	public static void main(String[] Args) {
+		try {
+			Radice();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
 }
