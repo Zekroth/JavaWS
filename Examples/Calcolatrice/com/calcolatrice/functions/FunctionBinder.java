@@ -32,7 +32,7 @@ public class FunctionBinder {
 		// Save Settings
 	    Properties saveProps = new Properties();
 	    saveProps.setProperty("operator", "/somethingpath1");
-	    saveProps.
+	    
 	    saveProps.setProperty("path2", "/somethingpath2");
 	    saveProps.storeToXML(new FileOutputStream("settings.xml"), "");
 		
