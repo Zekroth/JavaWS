@@ -4,7 +4,7 @@ import com.calcolatrice.core.BinaryOp;
 
 public class Sottrazione extends BinaryOp{
 
-	 
+	char[] sign = {'-'};
 	public Sottrazione() {
 		// TODO Auto-generated constructor stub
 	}

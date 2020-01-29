@@ -4,11 +4,13 @@ import com.calcolatrice.core.BinaryOp;
 
 public class Somma extends BinaryOp<Double,Double,Double> {
 
+	char[] sign = {'+'};
 	
 	@Override
 	public Double Solve() {
 		// TODO Auto-generated method stub
 		
+
 		return (Double) Result;
 	}
 
