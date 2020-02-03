@@ -9,6 +9,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import javax.tools.JavaCompiler;
+import javax.tools.ToolProvider;
+
 import com.calcolatrice.core.Op;
 
 
@@ -126,7 +129,23 @@ public final class OperatorConfig {
 			
 			for(String row : rawS.split(",")) {
 				String[] str = row.split(".");
-				cfMap.put(str[0],);
+				if(Thread.currentThread().getContextClassLoader().getResourceAsStream(str[0])!= null){
+					JavaCompiler jc = ToolProvider.getSystemJavaCompiler();
+					if(jc.run(null, null, null, str[0]) != 0) {
+						try {
+							Op op = (Op) Class.forName(str[0], true, str.getClass().getClassLoader()).newInstance();
+						} catch (ClassNotFoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (InstantiationException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (IllegalAccessException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
 			}
 			
 		}
