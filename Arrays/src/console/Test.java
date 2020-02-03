@@ -36,10 +36,10 @@ public class Test {
 				
 				System.out.println("Vuoi i numeri positivi o negativi");
 				String data = input.next();
-				if(data.equalsIgnoreCase("true")) {
+				if(data.equalsIgnoreCase("positivi")) {
 					argument = true;
 					break;
-				}else if(data.equalsIgnoreCase("false")) {
+				}else if(data.equalsIgnoreCase("negativi")) {
 					break;
 				}else {
 					throw new InputMismatchException("Per favore scrivi true o false");
