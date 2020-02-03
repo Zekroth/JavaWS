@@ -33,9 +33,28 @@ public class CalcoloDate {
 			return "gg:\t"+ this.giorno + "\nhh:\t" + this.ora + "\nmm:\t" + this.minuto + "\nss:\t" + this.secondo;
 		}
 	}
-	
+	static class StringStripper{
+		public String str;
+		public String vocali = "[aeiouy]";
+		public String consonanti = "[bcdfghlmnpqrstvwxz]";
+	}
 	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);		
-		System.out.println(new Data(input.nextLong()));
+		//System.out.println(new Data(input.nextLong()));
+		
+		String str  = input.nextLine();
+		System.out.println("Vuoi togliere le vocali o le consonanti?");
+		String answer = input.nextLine();
+		String[] arr = null;
+		if(answer.equalsIgnoreCase("vocali")) {
+			arr = str.split((new StringStripper()).vocali);
+		}else if(answer.equalsIgnoreCase("consonanti")){
+			arr = str.split((new StringStripper()).consonanti);
+		}
+		str = "";
+		for (String stringa : arr) {
+			str += stringa;
+		}
+		System.out.println(str);
 	}	
 }
