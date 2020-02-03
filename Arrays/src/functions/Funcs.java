@@ -1,5 +1,6 @@
 package functions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Funcs {
@@ -9,11 +10,13 @@ public class Funcs {
 		//Number x = new Number(0); primo errore
 		
 		Number x = 0;
-		
+		//System.out.println(list.toArray().length);
 		//for(int val: list.toArray()) { secondo errore (distrazione)
 		for(Object val: list.toArray()) {
 			
 			//x += val terzo errore 
+			//System.out.println(x);
+			
 			x = x.doubleValue() + ((Number) val).doubleValue();
 			
 		}
@@ -35,10 +38,10 @@ public class Funcs {
 		return x;
 	}
 	
-	public Number[] valuta (List <Number> list, boolean mode) {
+	public Object[] valuta (List <Number> list, boolean mode) {
 		
-		List<Number> pos = null;//liste non inizializzate
-		List<Number> neg = null;
+		List<Number> pos = new ArrayList<Number>();//liste non inizializzate
+		List<Number> neg = new ArrayList<Number>();
 		
 		for(Object val : list.toArray()) {
 			if(((Number)val).doubleValue() >= 0) {//altro errore per lo stesso problema di prima
@@ -48,13 +51,14 @@ public class Funcs {
 				neg.add((Number)val);
 			}
 		}
-		
-		System.out.println("Il prodotto dei positivi è: "+prodotto(pos));
-		System.out.println("La somma dei negativi è: "+somma(pos));
+		if(!pos.isEmpty())
+			System.out.println("Il prodotto dei positivi è: "+prodotto(pos));
+		if(!neg.isEmpty())
+			System.out.println("La somma dei negativi è: "+somma(neg));
 		if(mode) {
-			return (Number[]) pos.toArray(); //manca il cast
+			return pos.toArray(); //manca il cast
 		}else {
-			return (Number[]) neg.toArray();
+			return neg.toArray();
 		}
 		
 
