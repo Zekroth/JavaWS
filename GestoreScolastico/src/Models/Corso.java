@@ -32,7 +32,9 @@ public class Corso {
 	
 	public void stampaIscritti() {
 
-		
+		for(Studente s : iscrizioni) {
+			System.out.println(s.getMatricola()+"\t"+s.getNome()+"\t"+s.getCognome());
+		}
 	}
 	
 
