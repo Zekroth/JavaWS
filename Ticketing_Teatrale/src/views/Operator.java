@@ -1,11 +1,19 @@
 package views;
 
+import java.util.Calendar;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
-public class Operator {
+import core.TheaterManager;
+import models.Show;
 
-	public static void main(String[] args) {
+
+
+
+public class Operator {
+	public static TheaterManager current = null;
+	public static void main(String[] args) throws Exception {
 		
 		Scanner input = new Scanner(System.in);
 		String operatorName = null;
@@ -30,12 +38,42 @@ public class Operator {
 					
 					switch(input.nextInt()) {
 					case 1:
-						System.out.println("Per quale spettacolo vuoi creare il biglietto?");
-						try {
-							
-						}catch(InputMismatchException e) {
-							
+						if(current.getTheater().getPlannedShows().isEmpty()) {
+							System.out.println("Non ci sono show in programma");
+							continue;
 						}
+						System.out.println("Per quale spettacolo vuoi creare il biglietto?"
+								+ "\nPer cercare lo spettacolo inserisci"
+								+ "\n{gg/mm/yyyy dd} con dd numero di giorni di distanza dalla data indicata"
+								+ "\n{eur,cents} per ricercare tramite prezzo"
+								+ "\n{nome spettacolo} per ricercare tramite nome");
+						do {
+							try {
+								if(input.hasNextInt()) {
+									List<Show> shows = current.getTheater().lookForShow(input.nextInt());
+									for( int i = 0; i < shows.size(); i++ ) {
+										Show s = shows.get(i);
+										if(s.date.after(Calendar.getInstance().getTime()))
+											System.out.println(i + "|\t" + s.date + ":\t"+ s.name + "\t" + s.price );
+									}
+									System.out.println("Seleziona uno spettacolo:");
+									do {
+										try {
+											Show selected = shows.get(input.nextInt());
+											
+											break;
+										}catch(InputMismatchException e) {
+											System.out.println("Per favore inserisci un valore tra 0 e " + shows.size());
+										}
+									}while(true);
+								}
+								
+							}catch(InputMismatchException e) {
+								System.out.println("ERR LOG: "+ e.getMessage());
+							}
+							break;//Da rimuovere
+						}while(true);
+						
 						break;
 					case 2:
 						break;

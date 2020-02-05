@@ -110,7 +110,21 @@ public class Theater {
 	}
 	
 	public List<Show> lookForShow(String showName) {
-		ArrayList<Show> shows = new ArrayList<Show>();
+		List<Show> shows = new ArrayList<Show>();
+		for(Show s : this.plannedShows) {
+			if(s.name.contains(showName.toLowerCase()) || s.name.contains(showName.toUpperCase())) {
+				shows.add(s);
+			}
+		}
+		if(shows.isEmpty()) {
+			return null;
+		}else {
+			return shows;
+		}
+	}
+
+	public List<Show> lookForShow(String showName, List<Show> shows){
+		
 		for(Show s : this.plannedShows) {
 			if(s.name.contains(showName.toLowerCase()) || s.name.contains(showName.toUpperCase())) {
 				shows.add(s);
@@ -124,7 +138,7 @@ public class Theater {
 	}
 	
 	public List<Show> lookForShow(Date showDate) {
-		ArrayList<Show> shows = new ArrayList<Show>();
+		List<Show> shows = new ArrayList<Show>();
 		for(Show s : this.plannedShows) {
 			if(s.date.equals(showDate)) {
 				shows.add(s);
@@ -163,9 +177,47 @@ public class Theater {
 		}
 	}
 	
-	public ArrayList<Show> lookForShow(int price) {
+	public List<Show> lookForShow(Date showDate, List<Show> shows){
 		
-		ArrayList<Show> shows = new ArrayList<Show>();
+		for(Show s : this.plannedShows) {
+			if(s.date.equals(showDate)) {
+				shows.add(s);
+			}
+		}
+		if(shows.isEmpty()) {
+			return null;
+		}else {
+			return shows;
+		}
+	}
+	
+	public List<Show> lookForShow(Date showDate, int rangeOfDays, List<Show> shows){
+		
+		Date beforeLimit = (Date)showDate.clone();
+		beforeLimit.setTime(beforeLimit.getTime() - rangeOfDays * TimeUnit.DAYS.toMillis(1l));
+		
+		Date afterLimit = (Date)showDate.clone();
+		afterLimit.setTime(afterLimit.getTime() - rangeOfDays * TimeUnit.DAYS.toMillis(1l));
+		
+		for(Show s : this.plannedShows) {
+			
+			if(s.date.equals(showDate)|| (showDate.after(beforeLimit) && showDate.before(afterLimit) ) ) {
+				
+				shows.add(s);
+				
+			}
+			
+		}
+		if(shows.isEmpty()) {
+			return null;
+		}else {
+			return shows;
+		}
+	}
+	
+	public List<Show> lookForShow(int price) {
+		
+		List<Show> shows = new ArrayList<Show>();
 		
 		for(Show s : this.plannedShows) {
 			if(s.price < price) {
@@ -180,6 +232,18 @@ public class Theater {
 		
 	}
 	
-	
+	public List<Show> lookForShow(int price, List<Show> shows){
+		
+		for(Show s : this.plannedShows) {
+			if(s.price < price) {
+				shows.add(s);
+			}
+		}
+		if(shows.isEmpty()) {
+			return null;
+		}else {
+			return shows;
+		}
+	}
 	
 }
