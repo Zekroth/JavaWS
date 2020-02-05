@@ -22,7 +22,12 @@ public class Operator {
 				System.out.println("ERR LOG: "+ e.getMessage());
 			}
 			
-			
+			try {
+				System.out.println("Cosa vuoi fare?");
+				System.out.println("1\t per creare biglietto\n2\t per creare spettacolo");
+			}catch(InputMismatchException e) {
+				
+			}
 			
 		}while(true);
 
