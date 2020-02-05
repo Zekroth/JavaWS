@@ -31,6 +31,7 @@ public class Corso {
 	}
 	
 	public void stampaIscritti() {
+
 		
 	}
 	
