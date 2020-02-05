@@ -1,13 +1,16 @@
 package models;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class Theater {
 	
 	public String name;
 	private String ownerName;
-	private List<Ticket> releasedTickets;
-	private List<Show> plannedShows;
+	private List<Ticket> releasedTickets = null;
+	private List<Show> plannedShows = null;
 	private int ticketMatrix;
 	public int maxTicketsForShow;
 	
@@ -97,8 +100,85 @@ public class Theater {
 		return ticket;
 	}
 	
+	public Show getShow(String showName) {
+		for(Show s : this.plannedShows) {
+			if(s.name.equalsIgnoreCase(showName)) {
+				return s;
+			}
+		}
+		return null;
+	}
 	
+	public List<Show> lookForShow(String showName) {
+		ArrayList<Show> shows = new ArrayList<Show>();
+		for(Show s : this.plannedShows) {
+			if(s.name.contains(showName.toLowerCase()) || s.name.contains(showName.toUpperCase())) {
+				shows.add(s);
+			}
+		}
+		if(shows.isEmpty()) {
+			return null;
+		}else {
+			return shows;
+		}
+	}
 	
+	public List<Show> lookForShow(Date showDate) {
+		ArrayList<Show> shows = new ArrayList<Show>();
+		for(Show s : this.plannedShows) {
+			if(s.date.equals(showDate)) {
+				shows.add(s);
+			}
+		}
+		if(shows.isEmpty()) {
+			return null;
+		}else {
+			return shows;
+		}
+	}
+	
+	public List<Show> lookForShow(Date showDate, int rangeOfDays) {
+		
+		ArrayList<Show> shows = new ArrayList<Show>();
+		
+		Date beforeLimit = (Date)showDate.clone();
+		beforeLimit.setTime(beforeLimit.getTime() - rangeOfDays * TimeUnit.DAYS.toMillis(1l));
+		
+		Date afterLimit = (Date)showDate.clone();
+		afterLimit.setTime(afterLimit.getTime() - rangeOfDays * TimeUnit.DAYS.toMillis(1l));
+		
+		for(Show s : this.plannedShows) {
+			
+			if(s.date.equals(showDate)|| (showDate.after(beforeLimit) && showDate.before(afterLimit) ) ) {
+				
+				shows.add(s);
+				
+			}
+			
+		}
+		if(shows.isEmpty()) {
+			return null;
+		}else {
+			return shows;
+		}
+	}
+	
+	public ArrayList<Show> lookForShow(int price) {
+		
+		ArrayList<Show> shows = new ArrayList<Show>();
+		
+		for(Show s : this.plannedShows) {
+			if(s.price < price) {
+				shows.add(s);
+			}
+		}
+		if(shows.isEmpty()) {
+			return null;
+		}else {
+			return shows;
+		}
+		
+	}
 	
 	
 	

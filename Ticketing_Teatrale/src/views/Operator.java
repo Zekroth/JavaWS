@@ -20,14 +20,34 @@ public class Operator {
 				}
 			}catch(InputMismatchException e) {
 				System.out.println("ERR LOG: "+ e.getMessage());
+				continue;
 			}
 			
-			try {
-				System.out.println("Cosa vuoi fare?");
-				System.out.println("1\t per creare biglietto\n2\t per creare spettacolo");
-			}catch(InputMismatchException e) {
+			do {
+				try {
+					System.out.println("Cosa vuoi fare?");
+					System.out.println("1\t per creare biglietto\n2\t per creare spettacolo");
+					
+					switch(input.nextInt()) {
+					case 1:
+						System.out.println("Per quale spettacolo vuoi creare il biglietto?");
+						try {
+							
+						}catch(InputMismatchException e) {
+							
+						}
+						break;
+					case 2:
+						break;
+					}
+				}catch(InputMismatchException e) {
+					System.out.println("Inserisci un valore tra 1 e 2, senza altri caratteri");
+					continue;
+				}
 				
-			}
+			}while(true);
+			
+			
 			
 		}while(true);
 
