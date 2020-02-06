@@ -10,6 +10,15 @@ public class Studente {
 	private String cognome;
 	private String matricola;
 	
+	//CONSTRUCTORS
+	public Studente(String nome2, String cognome2, String matricola2) {
+		this.nome = nome2;
+		this.cognome = cognome2;
+		this.matricola = matricola2;
+	}
+	public Studente(String nome2, String cognome2) {
+		//TODO
+	}
 	//GETTERS
 	public String getNome() {
 		return nome;

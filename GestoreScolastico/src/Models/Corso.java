@@ -1,17 +1,23 @@
 package Models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Corso {
 	
 	private String titolo;
+	private static String ultimoCodice;
 	private String codice;
 	protected List<Studente> iscrizioni;
 	protected List<Professore> professori;
 	
 	public Corso(String titolo , String codice) {
+		
 		this.titolo = titolo;	
 		this.codice = codice;
+		this.iscrizioni = new ArrayList<Studente>();
+		this.professori = new ArrayList<Professore>();
+		
 	}
 	
 	public String getTitolo() {
