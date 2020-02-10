@@ -31,5 +31,7 @@ private String cognome;
 		c.professori.add(this);	//aggiunge il "valore" attuale del professore al corso 
 	}
 
-	
+	public String toString() {
+		return defaultToString("Professore");
+	}
 }

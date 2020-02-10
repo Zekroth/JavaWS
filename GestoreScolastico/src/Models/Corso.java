@@ -56,19 +56,25 @@ public class Corso{
 		}
 	}
 	
-	public void getStampaIscritti() {
+	public String getStampaIscritti() {
 		String stampa = "";
 		
 		for(Studente s : iscrizioni) {
 			stampa += (s + "\n");
 		}
+		return stampa;
 	}
 	
-	public void getStampaProfessori() {
+	public String getStampaProfessori() {
+		String stampa = "";
 		
+		for(Professore p : professori) {
+			stampa += (p + "\n");
+		}
+		return stampa;
 	}
 	public String toString() {
-		return "Corso :\t" + this.codice + "\ttitolo= \"" + this.titolo + "\"\t";
+		return "Corso :\t\"" + this.codice + "\"\ttitolo= \"" + this.titolo + "\"\t\n" + "---------------------\n" + getStampaIscritti() + "---------------------\n" + getStampaProfessori();
 	}
 	public boolean sortProfessori() {
 		if(this.professori.isEmpty()) {

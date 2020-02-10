@@ -28,7 +28,11 @@ public class AppStart {
 					+ "\n3 per inserire un professore"
 					+ "\n4 per assegnare un professore ad un corso"
 					+ "\n5 per iscrivere uno studente ad un corso"
-					+ "\n6 per uscire");
+					+ "\n6 per uscire"
+					+ "\n7 per stampare la lista degli studenti"
+					+ "\n8 per stampare la lista dei corsi"
+					+ "\n9 per stampare la lista dei professori"
+					+ "\n");
 			try {
 				switch(input.nextInt()) {
 				
@@ -44,27 +48,29 @@ public class AppStart {
 					String matricola = input.next();
 					input.nextLine();
 					studentList.add(new Studente(nomeStudente, cognomeStudente, matricola));
+					studentList.sort(Studente.PersonaComparator);
 					System.out.println("Ho aggiunto "+ nomeStudente);
 					continue;
 				}
 				case 2:{
+					input.nextLine();
 					System.out.println("Dimmi il titolo del corso");
 					String titolo = input.nextLine();
-					input.next();
 					System.out.println("Dimmi il codice del corso");
-					String codice = input.nextLine();
-					input.next();
+					String codice = input.next();
+					input.nextLine();
 					courseList.add(new Corso(titolo, codice));
+					courseList.sort(new Corso.SortByCodice());
 					break;
 				}
 				case 3:{
+					input.nextLine();
 					System.out.println("Dimmi il nome del professore");
 					String nomeProfessore = input.nextLine();
-					input.next();
 					System.out.println("Dimmi il cognome del professore");
-					String cognomeProfessore = input.nextLine();
-					input.next();
+					String cognomeProfessore = input.next();
 					professorList.add(new Professore(nomeProfessore ,cognomeProfessore));
+					professorList.sort(Professore.PersonaComparator);
 					break;
 				}
 				case 4:{
@@ -85,40 +91,53 @@ public class AppStart {
 									}
 									System.out.println("Inserisci la query");
 									ricercaProfessore = lookForProf(input.nextLine(), ricercaProfessore);
+									
 									input.next();
 									if(ricercaProfessore.isEmpty()) {
 										System.out.println("la ricerca non ha prodotto risultati");
 										continue;
 									}else if(ricercaProfessore.size() == 1) {
 										//PROFESSORE TROVATO
+										System.out.println("------Professore trovato-------");
 										System.out.println("A che corso vuoi assegnare "+ricercaProfessore.get(0).getNome()+"?");
 										List<Corso> ricercaCorso = courseList;
 										do {
-											for(Corso c : ricercaCorso) {
-												System.out.println(c.getCodice()+ "\t" + c.getTitolo());
-											}
-											System.out.println("Inserisci la query");
-											ricercaCorso = lookForCourse(input.nextLine(), ricercaCorso);
+											
+											
 											if(ricercaCorso.isEmpty()) {
 												System.out.println("la ricerca non ha prodotto risultati");
 												continue;
 											}else if(ricercaCorso.size() == 1) {
 												//CORSO TROVATO
+												System.out.println("--------Corso trovato--------");
+												if(ricercaCorso.get(0).getStampaIscritti().contains(ricercaProfessore.get(0).getNomeCognome())) {
+													System.out.println("Il professore è già nel corso");
+												}else {
+													professorList.remove(ricercaProfessore.get(0));
+													ricercaProfessore.get(0).assegnaCorso(ricercaCorso.get(0));
+													professorList.add(ricercaProfessore.get(0));
+												}
 												professorList.remove(ricercaProfessore.get(0));
 												ricercaProfessore.get(0).assegnaCorso(ricercaCorso.get(0));
 												professorList.add(ricercaProfessore.get(0));
 												correct = true;
 												break;
 											}else {
+												for(Corso c : ricercaCorso) {
+													System.out.println("Corso:" + c.getCodice()+ "\t" + c.getTitolo());
+												}
+												System.out.println("Inserisci la query");
+												ricercaCorso = lookForCourse(input.next(), ricercaCorso);
 												continue;
 											}
 										}while(true);
-										
+										break;
 									}else {
+										System.out.println("Sono stati trovati risultati multipli");
 										continue;
 									}
-								}while(true);
-								
+								}while(!correct);
+								break;
 							}
 							case 1: {
 								break;
@@ -126,11 +145,13 @@ public class AppStart {
 							}
 						}else {
 							String data = input.nextLine();
+							input.next();
 							if(data.matches("[A-Za-z][_][A-Za-z]")) {
 								Professore p = new Professore(data.split("_")[0],data.split("_")[1]);
 								if(professorList.contains(p)) {
 									System.out.println("Inserisci il codice del corso");
 									data = input.nextLine();
+									input.next();
 									List<Corso> cList = lookForCourse(data,courseList);
 									if(cList.size()==1) {
 										courseList.remove(cList.get(0));
@@ -150,33 +171,127 @@ public class AppStart {
 							
 						}
 					}while(!correct);
-					
+					continue;
 				}
-				case 5:{
+				case 5:{System.out.println("Seleziona uno studente in formato {nome}_{cognome} oppure inserisci "
+						+ "\n 0\tper cercare uno studente"
+						+ "\n 1\tper uscire");
+				boolean correct = false;
+				List<Studente> ricercaStudente = studentList;
+				do {
 					
-				}
+					if(input.hasNextInt()) {
+						
+						switch (input.nextInt()) {
+						case 0: {
+							do {
+								for(Studente s : ricercaStudente) {
+									System.out.println(s.getNome()+ "\t" + s.getCognome());
+								}
+								System.out.println("Inserisci la query");
+								ricercaStudente = Studente.lookForStudente(input.nextLine(), ricercaStudente);
+								input.next();
+								if(ricercaStudente.isEmpty()) {
+									System.out.println("la ricerca non ha prodotto risultati");
+									continue;
+								}else if(ricercaStudente.size() == 1) {
+									//PROFESSORE TROVATO
+									System.out.println("A che corso vuoi assegnare "+ricercaStudente.get(0).getNome()+"?");
+									List<Corso> ricercaCorso = courseList;
+									do {
+										for(Corso c : ricercaCorso) {
+											System.out.println(c.getCodice()+ "\t" + c.getTitolo());
+										}
+										System.out.println("Inserisci la query");
+										ricercaCorso = lookForCourse(input.nextLine(), ricercaCorso);
+										input.next();
+										if(ricercaCorso.isEmpty()) {
+											System.out.println("la ricerca non ha prodotto risultati");
+											continue;
+										}else if(ricercaCorso.size() == 1) {
+											//CORSO TROVATO
+											studentList.remove(ricercaStudente.get(0));
+											ricercaStudente.get(0).iscrivi(ricercaCorso.get(0));
+											studentList.add(ricercaStudente.get(0));
+											correct = true;
+											break;
+										}else {
+											continue;
+										}
+									}while(true);
+									
+								}else {
+									continue;
+								}
+							}while(true);
+							
+						}
+						case 1: {
+							break;
+						}
+						}
+					}else {
+						String data = input.nextLine();
+						input.next();
+						if(data.matches("[A-Za-z][_][A-Za-z]")) {
+							Professore p = new Professore(data.split("_")[0],data.split("_")[1]);
+							if(professorList.contains(p)) {
+								System.out.println("Inserisci il codice del corso");
+								data = input.nextLine();
+								input.next();
+								List<Corso> cList = lookForCourse(data,courseList);
+								if(cList.size()==1) {
+									courseList.remove(cList.get(0));
+									p.assegnaCorso(cList.get(0));
+									courseList.add(cList.get(0));
+									courseList.sort(new Corso.SortByCodice());
+									correct = true;
+									
+								}else {
+									throw new InputMismatchException("Il nome del corso inserito non è presente nel programma");
+								}
+							}
+						}else {
+							throw new InputMismatchException("Il nome del professore inserito non è presente nel programma");
+						}
+						
+						
+					}
+				}while(!correct);
+				
+			}
+					
+				
 				case 6:{
 					System.exit(0);
 				}
 				case 7:{
+					System.out.println("Stampo la lista degli studenti");
 					for(Studente s: studentList) 
 						System.out.println(s);
-					
+					System.out.println("\n\n");
+					continue;
 				}
 				case 8:{
+					System.out.println("Stampo la lista dei corsi");
 					for(Corso c: courseList) 
 						System.out.println(c);
+					System.out.println("\n\n");
+					continue;
 				}
 				case 9:{
+					System.out.println("Stampo la lista dei professori");
 					for(Professore p: professorList) 
 						System.out.println(p);
+					System.out.println("\n\n");
+					continue;
 				}
 				}
 			}catch(InputMismatchException e) {
 				System.out.println("ERR LOG:" + e.getMessage());
 				continue;
 			}
-			break;
+			
 		}while(true);
 
 	}
@@ -192,7 +307,7 @@ public class AppStart {
 	private static List<Corso> lookForCourse(String query, List<Corso> list){
 		
 		List<Corso> list2 = new ArrayList<Corso>();
-		
+		System.out.println("QUERY:\t" + query);
 		for(Corso c : list) {
 			if(c.getTitolo().concat(c.getCodice()).contains(query)) {
 				list2.add(c);

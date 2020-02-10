@@ -54,5 +54,14 @@ public class Studente implements Persona{
 		return "Studente\tnome=\"" + this.nome + "\"\tcognome=\"" + this.cognome + "\"\tmatricola=\"" + this.matricola + "\"";
 	}
 	
-	
+	public static List<Studente> lookForStudente(String query, List<Studente> list) {
+		
+		List<Studente> list2 = new ArrayList<Studente>();
+		for(Studente p : list) {
+			if(p.getNomeCognome().contains(query)) {
+				list2.add(p);
+			}
+		}
+		return list2;
+	}
 }
