@@ -34,27 +34,36 @@ public class AppStart {
 				
 				case 1:{
 					System.out.println("Dimmi il nome dello studente");
-					String nomeStudente = input.nextLine();
+					String nomeStudente = input.next();
+					System.out.println(nomeStudente);
+					input.nextLine();
 					System.out.println("Dimmi il cognome dello studente");
-					String cognomeStudente = input.nextLine();
+					String cognomeStudente = input.next();
+					input.nextLine();
 					System.out.println("Dimmi la matricola dello studente");
-					String matricola = input.nextLine();
+					String matricola = input.next();
+					input.nextLine();
 					studentList.add(new Studente(nomeStudente, cognomeStudente, matricola));
-					break;
+					System.out.println("Ho aggiunto "+ nomeStudente);
+					continue;
 				}
 				case 2:{
 					System.out.println("Dimmi il titolo del corso");
 					String titolo = input.nextLine();
+					input.next();
 					System.out.println("Dimmi il codice del corso");
 					String codice = input.nextLine();
+					input.next();
 					courseList.add(new Corso(titolo, codice));
 					break;
 				}
 				case 3:{
 					System.out.println("Dimmi il nome del professore");
 					String nomeProfessore = input.nextLine();
+					input.next();
 					System.out.println("Dimmi il cognome del professore");
 					String cognomeProfessore = input.nextLine();
+					input.next();
 					professorList.add(new Professore(nomeProfessore ,cognomeProfessore));
 					break;
 				}
@@ -76,6 +85,7 @@ public class AppStart {
 									}
 									System.out.println("Inserisci la query");
 									ricercaProfessore = lookForProf(input.nextLine(), ricercaProfessore);
+									input.next();
 									if(ricercaProfessore.isEmpty()) {
 										System.out.println("la ricerca non ha prodotto risultati");
 										continue;
@@ -140,14 +150,25 @@ public class AppStart {
 						}
 					}while(!correct);
 					
-					break;
 				}
 				case 5:{
-					break;
+					
 				}
 				case 6:{
 					System.exit(0);
-					break;
+				}
+				case 7:{
+					for(Studente s: studentList) 
+						System.out.println(s);
+					
+				}
+				case 8:{
+					for(Corso c: courseList) 
+						System.out.println(c);
+				}
+				case 9:{
+					for(Professore p: professorList) 
+						System.out.println(p);
 				}
 				}
 			}catch(InputMismatchException e) {

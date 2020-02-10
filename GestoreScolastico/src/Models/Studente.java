@@ -1,9 +1,10 @@
 package Models;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
-public class Studente {
+public class Studente implements Persona{
 	
 	//FIELDS
 	private String nome;
@@ -49,4 +50,9 @@ public class Studente {
 	public void cancella(Corso c) {
 		c.iscrizioni.remove(this);
 	}
+	public String toString() {
+		return "Studente\tnome=\"" + this.nome + "\"\tcognome=\"" + this.cognome + "\"\tmatricola=\"" + this.matricola + "\"";
+	}
+	
+	
 }
