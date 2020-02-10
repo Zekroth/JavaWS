@@ -136,6 +136,7 @@ public class AppStart {
 										courseList.remove(cList.get(0));
 										p.assegnaCorso(cList.get(0));
 										courseList.add(cList.get(0));
+										courseList.sort(new Corso.SortByCodice());
 										correct = true;
 										
 									}else {

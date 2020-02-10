@@ -6,7 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Corso implements Comparable<Corso>{
+public class Corso{
 	
 	private String titolo;
 	private static String ultimoCodice;
@@ -22,7 +22,11 @@ public class Corso implements Comparable<Corso>{
 		this.professori = new ArrayList<Professore>();
 		
 	}
-	
+	//empty constructor for constructing inner classes
+	public Corso() {
+		
+	}
+
 	public String getTitolo() {
 		return titolo;
 	}
@@ -81,10 +85,48 @@ public class Corso implements Comparable<Corso>{
 		return true;
 	}
 
-	@Override
-	public int compareTo(Corso o) {
-		return this.codice.compareTo(o.codice);
+	public static class SortByTitolo implements Comparator<Corso>{
+
+		@Override
+		public int compare(Corso o1, Corso o2) {
+			return o1.titolo.compareTo(o2.titolo);
+		}
+		
 	}
 	
+	public static class SortByCodice implements Comparator<Corso>{
+
+		@Override
+		public int compare(Corso o1, Corso o2) {
+			return o1.codice.compareTo(o2.codice);
+		}
+		public SortByCodice() {
+			
+		}
+		
+	}
+	
+	public static class SortByDimensioneIscrizioni implements Comparator<Corso>{
+
+		@Override
+		public int compare(Corso o1, Corso o2) {
+			return o2.iscrizioni.size() - o2.iscrizioni.size();
+		}
+		public int compareDesc(Corso o1, Corso o2) {
+			return o1.iscrizioni.size() - o1.iscrizioni.size();
+		}
+	}
+	
+	public static class SortByDimensioneProfessori implements Comparator<Corso>{
+
+		@Override
+		public int compare(Corso o1, Corso o2) {
+			return o2.professori.size() - o2.professori.size();
+		}
+		public int compareDesc(Corso o1, Corso o2) {
+			return o1.professori.size() - o1.professori.size();
+		}
+		
+	}
 
 }
