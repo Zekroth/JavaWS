@@ -57,11 +57,32 @@ public class Studente implements Persona{
 	public static List<Studente> lookForStudente(String query, List<Studente> list) {
 		
 		List<Studente> list2 = new ArrayList<Studente>();
-		for(Studente p : list) {
-			if(p.getNomeCognome().contains(query)) {
-				list2.add(p);
+		for(Studente s : list) {
+			if(s.getNomeCognome().contains(query)) {
+				list2.add(s);
+				
 			}
 		}
 		return list2;
+	}
+	
+	public static List<Studente> lookForStudente(Studente s, List<Studente> list){
+		
+		List<Studente> list2 = new ArrayList<Studente>();
+		for(Studente s1 : list) {
+			if(s.equals(s1)) {
+				list2.add(s1);
+			}
+		}
+		return list2;
+		
+	}
+	public boolean equals(Studente s) {
+		
+		if(s.nome.equalsIgnoreCase(this.nome)&&s.cognome.equalsIgnoreCase(this.cognome)) {
+			return true;
+		}
+		return false;
+		
 	}
 }

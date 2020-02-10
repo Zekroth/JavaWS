@@ -64,7 +64,20 @@ public class Corso{
 		}
 		return stampa;
 	}
-	
+	public boolean isProfInList(Professore p) {
+		if(this.professori.contains(p)) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	public boolean isStudInList(Studente s) {
+		if(this.iscrizioni.contains(s)) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 	public String getStampaProfessori() {
 		String stampa = "";
 		
