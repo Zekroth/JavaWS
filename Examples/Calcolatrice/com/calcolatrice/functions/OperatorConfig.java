@@ -1,16 +1,29 @@
 package com.calcolatrice.functions;
 
+
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Collection;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-import javax.tools.JavaCompiler;
-import javax.tools.ToolProvider;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import com.calcolatrice.core.Op;
 
@@ -20,136 +33,76 @@ import com.calcolatrice.core.Op;
 	
 public final class OperatorConfig {
 	
-	private static class ConfigMap implements Map{
-		
-		private HashMap<String,Op> map;
-		@Override
-		public int size(){
-			return map.values().size();
-
-		}
-
-		@Override
-		public boolean isEmpty() {
-			if(size() == 0)
-				return false;
-			
-			return true;
-		}
-
-		@Override
-		public boolean containsKey(Object key) {
-			if(map.containsKey((String)key)) {
-				return true;
-			}
-			return false;
-		}
-
-		@Override
-		public boolean containsValue(Object value) {
-			if(map.containsValue((Op)value)) {
-				return true;
-			}
-			return false;
-		}
-
-		@Override
-		public Object get(Object key) {
-			map.get((String)key);
-			return null;
-		}
-
-		@Override
-		public Object put(Object key, Object value) {
-			
-			map.put((String)key, (Op) value);
-			
-			return null;
-		}
-
-		@Override
-		public Object remove(Object key) {
-			
-			return map.remove((String)key);
-		}
-		
-		@Override
-		public void putAll(Map m) {
-			m.putAll(m);
-		}
-
-		@Override
-		public void clear() {
-			map.clear();
-		}
-
-		@Override
-		public Set<String> keySet() {
-			return map.keySet();
-
-		}
-
-		@Override
-		public Collection<Op> values() {
-			return map.values();
-		}
-
-		@Override
-		public Set entrySet() {
-			return map.entrySet();
-		}
-		
-	}
+	protected static List<Class<? extends Op>> Operators = new ArrayList<Class<? extends Op>>();
 	
-	private static ConfigMap cfMap;
+	private static final String SERIALIZED_FILE_NAME="settings.xml";
+	
+	
 	private static File opConfigs;
 	private static FileReader configFR;
 	private static FileWriter configFW;
-
+	
 
 	
 	/*
-	 * Metodo usato per caricare le funzioni da file di configurazione
+	 * Metodo usato per salvare le funzioni su file di configurazione
 	 */
-	public static boolean loadConfigs() throws IOException, InterruptedException {
+	public static void saveConfigs() throws IOException, InterruptedException {
 		
 		
-		opConfigs = new File("settings.xml");
+		opConfigs = new File(SERIALIZED_FILE_NAME);
 		configFR = new FileReader(opConfigs);
 		configFW = new FileWriter(opConfigs);
 		
-		if(opConfigs.createNewFile()) {
-			//codice di inizializzazione del file di setting
-			
-		}else {
-			char[] raw = null;
-			int pointer = configFR.read(raw);
-			configFR.wait();
-			String rawS = new String(raw);
-			
-			for(String row : rawS.split(",")) {
-				String[] str = row.split(".");
-				if(Thread.currentThread().getContextClassLoader().getResourceAsStream(str[0])!= null){
-					JavaCompiler jc = ToolProvider.getSystemJavaCompiler();
-					if(jc.run(null, null, null, str[0]) != 0) {
-						try {
-							Op op = (Op) Class.forName(str[0], true, str.getClass().getClassLoader()).newInstance();
-						} catch (ClassNotFoundException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} catch (InstantiationException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} catch (IllegalAccessException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
-				}
+		
+	}
+	
+	
+	protected static boolean cleanSettings() {
+		if(opConfigs!= null) {
+			if(opConfigs.exists()) {
+				return opConfigs.delete();
 			}
-			
 		}
 		return false;
+	}
+	
+	protected static OperatorConfig loadConfigs() throws ParserConfigurationException, SAXException, IOException, ClassNotFoundException {
+		
+		if(opConfigs.exists()) {
+			
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder db = factory.newDocumentBuilder();
+			StringBuilder xmlStringBuilder = new StringBuilder();
+			xmlStringBuilder.append("<?xml version=\"1.0\"?> <class> </class>");
+			ByteArrayInputStream input = new ByteArrayInputStream(
+			   xmlStringBuilder.toString().getBytes("UTF-8"));
+			Document doc = db.parse(input);
+			
+			Element root = doc.getDocumentElement();
+			
+			Map<String,Class<? extends Op>> dataMap = new HashMap<String,Class<? extends Op>>();//FORMAT Name|Path
+			NodeList dataList = root.getElementsByTagName("operator");
+			
+			//Acquisizione nome operatore e path della classe
+			for(int i = 0; i< dataList.getLength(); i++	) {
+				
+				String name = dataList.item(i).getAttributes().getNamedItem("OperatorName").getNodeValue();
+				
+				Class<? extends Op> op = (Class<? extends Op>) Op.class.forName(name, true, Op.class.getClassLoader());
+				
+				dataMap.putIfAbsent(name, op);
+				
+				Op.class.getClass();
+			}
+
+
+		}else {
+			//FILE DOESN'T EXISTS CASE
+		}
+		
+		return null;
+		
 	}
 }
 
