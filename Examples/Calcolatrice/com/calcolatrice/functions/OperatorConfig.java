@@ -96,7 +96,7 @@ public final class OperatorConfig {
 				Op.class.getClass();
 			}
 
-
+			Operators = (List<Class<? extends Op>>) dataMap.values();
 		}else {
 			//FILE DOESN'T EXISTS CASE
 		}
