@@ -1,8 +1,9 @@
-package Models;
+package models;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 public class Studente implements Persona{
 	
@@ -10,6 +11,9 @@ public class Studente implements Persona{
 	private String nome;
 	private String cognome;
 	private String matricola;
+	
+	
+	Set<Corso> corsi;
 	
 	//CONSTRUCTORS
 	public Studente(String nome2, String cognome2, String matricola2) {
