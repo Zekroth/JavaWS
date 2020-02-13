@@ -5,9 +5,9 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-import Models.Corso;
-import Models.Professore;
-import Models.Studente;
+import models.Corso;
+import models.Professore;
+import models.Studente;
 
 public class AppStart {
 
