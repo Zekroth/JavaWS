@@ -1,5 +1,4 @@
-module com.calcolatrice{
+module calcolatrice{
 	requires java.xml;
-	requires jdk.jdi;
 	requires java.desktop;
 }

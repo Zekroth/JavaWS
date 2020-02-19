@@ -1,4 +1,4 @@
-package com.calcolatrice.core;
+package core;
 
 public abstract class BinaryOp<T ,Tt extends Object,Ttt extends Object> extends Op{
 	

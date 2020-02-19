@@ -1,4 +1,4 @@
-package com.calcolatrice.core;
+package core;
 
 public abstract class UnaryOp extends Op{
 

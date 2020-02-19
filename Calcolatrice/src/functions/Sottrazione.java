@@ -1,6 +1,6 @@
-package com.calcolatrice.functions;
+package functions;
 
-import com.calcolatrice.core.BinaryOp;
+import core.BinaryOp;
 
 public class Sottrazione extends BinaryOp{
 

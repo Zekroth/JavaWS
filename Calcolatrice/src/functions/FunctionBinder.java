@@ -1,4 +1,4 @@
-package com.calcolatrice.functions;
+package functions;
 
 public class FunctionBinder {
 	

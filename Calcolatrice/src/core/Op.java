@@ -1,4 +1,4 @@
-package com.calcolatrice.core;
+package core;
 
 public abstract class Op<T extends Object> {
 

@@ -1,4 +1,4 @@
-package com.calcolatrice.functions;
+package functions;
 
 
 import java.io.BufferedOutputStream;
@@ -25,7 +25,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import com.calcolatrice.core.Op;
+import core.Op;
 
 
 

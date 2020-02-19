@@ -1,4 +1,4 @@
-package com.calcolatrice.interfaces.console;
+package interfaces.console;
 
 class ConsoleStart {
 //esercizio professor pier luigi miglioli

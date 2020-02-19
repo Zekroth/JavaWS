@@ -10,7 +10,7 @@ import models.Professore;
 import models.Studente;
 
 public class AppStart {
-
+	
 	private static List<Studente> studentList = new ArrayList<Studente>();
 	private static List<Professore> professorList = new ArrayList<Professore>();
 	private static List<Corso> courseList = new ArrayList<Corso>();

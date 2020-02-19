@@ -1,4 +1,4 @@
-package com.calcolatrice.core;
+package core;
 
 import java.util.List;
 import java.util.regex.Matcher;

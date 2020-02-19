@@ -1,6 +1,6 @@
-package com.calcolatrice.functions;
+package functions;
 
-import com.calcolatrice.core.BinaryOp;
+import core.BinaryOp;
 
 public class Somma extends BinaryOp<Double,Double,Double> {
 

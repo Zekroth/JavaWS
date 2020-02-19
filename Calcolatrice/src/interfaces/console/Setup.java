@@ -1,9 +1,9 @@
-package com.calcolatrice.interfaces.console;
+package interfaces.console;
 
 import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
 
-import com.calcolatrice.functions.FunctionBinder;
+import functions.FunctionBinder;
 
 public class Setup {
 

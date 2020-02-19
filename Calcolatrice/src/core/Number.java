@@ -1,4 +1,4 @@
-package com.calcolatrice.core;
+package core;
 
 public class Number extends Op<Double> {
 	

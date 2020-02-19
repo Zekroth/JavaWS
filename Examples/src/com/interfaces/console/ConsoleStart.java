@@ -2,7 +2,6 @@ package com.interfaces.console;
 
 import com.examples.Employee;
 import com.examples.FunzioniMatematiche;
-import com.sun.jdi.Field;
 
 public class ConsoleStart {
 
