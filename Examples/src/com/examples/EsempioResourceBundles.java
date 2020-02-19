@@ -12,7 +12,7 @@ public class EsempioResourceBundles {
 		System.out.println(System.getProperty("user.dir"));
 		System.out.println("Locale corrente: " + Locale.getDefault());
 		
-		ResourceBundle myBundle = ResourceBundle.getBundle("MyLabels");
+		ResourceBundle myBundle = ResourceBundle.getBundle("MyLabels",Locale.getDefault());
 		
 		System.out.println("Say how are you in US ENG: " + myBundle.getString("how_are_you"));
 		
